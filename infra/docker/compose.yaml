@@ -1,0 +1,26 @@
+
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: cloudscale-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: cloudscale
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+      POSTGRES_DB: cloudscale
+
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - cloudscale_pgdata:/var/lib/postgresql/data
+
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U cloudscale -d cloudscale" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+    cloudscale_pgdata:

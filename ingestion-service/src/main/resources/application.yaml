@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ingestion-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5434/cloudscale
+    username: cloudscale
+    password: ${POSTGRES_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
